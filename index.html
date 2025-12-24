@@ -66,6 +66,25 @@
         .booking-widget {
             transition: transform 0.3s ease;
         }
+        #about-more {
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+        }
+        #about-more.hidden {
+            display: none;
+        }
+        #about-more:not(.hidden) {
+            animation: fadeIn 0.3s ease;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
@@ -183,20 +202,36 @@
         <div class="container mx-auto px-4">
             <div class="max-w-4xl mx-auto">
                 <h2 class="text-4xl md:text-5xl font-bold text-ocean-dark text-center mb-12">About Carib Condominiums</h2>
-                <p class="text-lg text-gray-700 text-center mb-6 leading-relaxed">
-                    Carib Ocho Rios Condominiums sits directly on the Caribbean Sea with uninterrupted views of the ocean and a spectacular reef.
-                    The complex is within the city on a large piece of land, offering the perfect balance of convenience and tranquility.
-                </p>
-                <p class="text-lg text-gray-700 text-center mb-6 leading-relaxed">
-                    This spacious 2-bedroom apartment was completely refurbished and painted in 2023. The balcony overlooks a beautiful reef,
-                    and the unit features 3 TVs for your entertainment. Enjoy free parking in our large parking lot, including a disabled
-                    parking spot close to the apartment.
-                </p>
-                <p class="text-lg text-gray-700 text-center mb-12 leading-relaxed">
-                    Perfectly located within walking distance to all the eating and night spots in Ocho Rios, and just a short drive from
-                    Dunn's River Falls and Mystic Mountain. The apartment includes accessibility features with grab bars in both bathrooms,
-                    plus comprehensive fire safety equipment for your peace of mind.
-                </p>
+                <div class="about-content">
+                    <p class="text-lg text-gray-700 text-center mb-6 leading-relaxed">
+                        Carib Ocho Rios Condominiums sits directly on the Caribbean Sea with uninterrupted views of the ocean and a spectacular reef.
+                        The complex is within the city on a large piece of land, offering the perfect balance of convenience and tranquility.
+                    </p>
+                    <div id="about-more" class="hidden">
+                        <p class="text-lg text-gray-700 text-center mb-6 leading-relaxed">
+                            This spacious 2-bedroom apartment was completely refurbished and painted in 2023. The balcony overlooks a beautiful reef,
+                            and the unit features 3 TVs for your entertainment. Enjoy free parking in our large parking lot, including a disabled
+                            parking spot close to the apartment.
+                        </p>
+                        <p class="text-lg text-gray-700 text-center mb-6 leading-relaxed">
+                            Perfectly located within walking distance to all the eating and night spots in Ocho Rios, and just a short drive from
+                            Dunn's River Falls and Mystic Mountain. The apartment includes accessibility features with grab bars in both bathrooms,
+                            plus comprehensive fire safety equipment for your peace of mind.
+                        </p>
+                    </div>
+                </div>
+                <div class="text-center mt-6 mb-12">
+                    <button
+                        id="read-more-btn"
+                        class="inline-flex items-center gap-2 text-ocean-blue hover:text-ocean-dark font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ocean-blue focus:ring-offset-2 rounded-lg px-4 py-2"
+                        aria-expanded="false"
+                        aria-controls="about-more">
+                        <span id="read-more-text">Read More</span>
+                        <svg id="read-more-icon" class="w-5 h-5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                </div>
 
                 <!-- Key Stats Grid -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
@@ -485,6 +520,32 @@
             }
 
             lastScroll = currentScroll;
+        });
+
+        // Read More Toggle for About Section
+        const readMoreBtn = document.getElementById('read-more-btn');
+        const aboutMore = document.getElementById('about-more');
+        const readMoreText = document.getElementById('read-more-text');
+        const readMoreIcon = document.getElementById('read-more-icon');
+
+        readMoreBtn.addEventListener('click', () => {
+            const isHidden = aboutMore.classList.toggle('hidden');
+
+            // Update button text and icon
+            if (isHidden) {
+                readMoreText.textContent = 'Read More';
+                readMoreIcon.style.transform = 'rotate(0deg)';
+                readMoreBtn.setAttribute('aria-expanded', 'false');
+            } else {
+                readMoreText.textContent = 'Read Less';
+                readMoreIcon.style.transform = 'rotate(180deg)';
+                readMoreBtn.setAttribute('aria-expanded', 'true');
+
+                // Smooth scroll to keep content in view
+                setTimeout(() => {
+                    readMoreBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
         });
     </script>
 </body>
