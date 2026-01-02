@@ -442,24 +442,6 @@
         </div>
     </section>
 
-    <!-- Booking Widget (Fixed/Sticky) -->
-    <div id="booking-widget" class="fixed bottom-0 left-0 right-0 md:right-auto md:top-1/2 md:bottom-auto md:transform md:-translate-y-1/2 md:w-80 md:left-4 z-40 booking-widget">
-        <div class="bg-white shadow-2xl rounded-t-2xl md:rounded-2xl p-6 border-t-4 border-teal">
-            <h3 class="text-xl font-bold text-ocean-dark mb-4 text-center md:text-left">Book Your Stay</h3>
-            <p class="text-sm text-gray-600 mb-4 text-center md:text-left">
-                Reserve your stay directly through Airbnb
-            </p>
-            <a href="https://www.airbnb.co.uk/rooms/895902458573265730" target="_blank" rel="noopener noreferrer" class="w-full bg-coral text-white py-3 rounded-lg font-semibold hover:bg-coral/90 transition shadow-lg block text-center">
-                Book on Airbnb
-            </a>
-            <div class="mt-4 pt-4 border-t border-gray-200">
-                <p class="text-xs text-gray-600 text-center mb-2">Questions? Contact us:</p>
-                <a href="https://wa.me/18763220408" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal/80 text-sm font-semibold block text-center">
-                    📱 WhatsApp: (876) 322-0408
-                </a>
-            </div>
-        </div>
-    </div>
 
     <!-- Footer -->
     <footer id="book" class="bg-ocean-dark text-white py-16">
@@ -504,26 +486,6 @@
             link.addEventListener('click', () => {
                 mobileMenu.classList.add('hidden');
             });
-        });
-
-        // Hide booking widget on mobile when scrolling down, show when scrolling up
-        let lastScroll = 0;
-        const bookingWidget = document.getElementById('booking-widget');
-
-        window.addEventListener('scroll', () => {
-            const currentScroll = window.pageYOffset;
-
-            if (window.innerWidth < 768) { // Mobile only
-                if (currentScroll > lastScroll && currentScroll > 100) {
-                    // Scrolling down
-                    bookingWidget.style.transform = 'translateY(100%)';
-                } else {
-                    // Scrolling up
-                    bookingWidget.style.transform = 'translateY(0)';
-                }
-            }
-
-            lastScroll = currentScroll;
         });
 
         // Read More Toggle for About Section
